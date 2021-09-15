@@ -17,12 +17,13 @@ var timer;
 var timerCount;
 //questions variables
 var questionsArray = [];
-var questionOne = ["Hello", "What", "When", "Why", "How"];
-var questionTwo = ["World", "What", "When", "Why", "How"];
-var questionThree = ["How", "What", "When", "Why", "How"];
-var questionFour = ["Are", "What", "When", "Why", "How"];
-var questionFive = ["You", "What", "When", "Why", "How"];
-var questionText = document.querySelector(".question-text");
+var questionText = ["Hello", "World", "How", "Are", "You"];
+var questionOne = ["What", "When", "Why", "How"];
+var questionTwo = ["What", "When", "Why", "How"];
+var questionThree = ["What", "When", "Why", "How"];
+var questionFour = ["What", "When", "Why", "How"];
+var questionFive = ["What", "When", "Why", "How"];
+var questionTextElement = document.querySelector(".question-text");
 var answerBtnOne = document.querySelector(".answer-button-1");
 var answerBtnTwo = document.querySelector(".answer-button-2");
 var answerBtnThree = document.querySelector(".answer-button-3");
@@ -74,7 +75,7 @@ function startTimer() {
   timer = setInterval(function () {
     timerCount--;
     timerElement.textContent = timerCount;
-    if (timerCount <= 0) {
+    if (timerCount === 0) {
       clearInterval(timer);
       endGame();
     }
@@ -89,39 +90,39 @@ function shuffle(array) {
 //create function to show question and answers
 function question() {
   if (questionsArray[0] === "q1") {
-    questionText.innerHTML = questionOne[0];
-    answerBtnOne.textContent = questionOne[1];
-    answerBtnTwo.textContent = questionOne[2];
-    answerBtnThree.textContent = questionOne[3];
-    answerBtnFour.textContent = questionOne[4];
+    questionTextElement.innerHTML = questionText[0];
+    answerBtnOne.textContent = questionOne[0];
+    answerBtnTwo.textContent = questionOne[1];
+    answerBtnThree.textContent = questionOne[2];
+    answerBtnFour.textContent = questionOne[3];
     questionsArray.shift();
   } else if (questionsArray[0] === "q2") {
-    questionText.innerHTML = questionTwo[0];
-    answerBtnOne.textContent = questionTwo[1];
-    answerBtnTwo.textContent = questionTwo[2];
-    answerBtnThree.textContent = questionTwo[3];
-    answerBtnFour.textContent = questionTwo[4];
+    questionTextElement.innerHTML = questionText[1];
+    answerBtnOne.textContent = questionTwo[0];
+    answerBtnTwo.textContent = questionTwo[1];
+    answerBtnThree.textContent = questionTwo[2];
+    answerBtnFour.textContent = questionTwo[3];
     questionsArray.shift();
   } else if (questionsArray[0] === "q3") {
-    questionText.innerHTML = questionThree[0];
-    answerBtnOne.textContent = questionThree[1];
-    answerBtnTwo.textContent = questionThree[2];
-    answerBtnThree.textContent = questionThree[3];
-    answerBtnFour.textContent = questionThree[4];
+    questionTextElement.innerHTML = questionText[2];
+    answerBtnOne.textContent = questionThree[0];
+    answerBtnTwo.textContent = questionThree[1];
+    answerBtnThree.textContent = questionThree[2];
+    answerBtnFour.textContent = questionThree[3];
     questionsArray.shift();
   } else if (questionsArray[0] === "q4") {
-    questionText.innerHTML = questionFour[0];
-    answerBtnOne.textContent = questionThree[1];
-    answerBtnTwo.textContent = questionThree[2];
-    answerBtnThree.textContent = questionThree[3];
-    answerBtnFour.textContent = questionThree[4];
+    questionTextElement.innerHTML = questionText[3];
+    answerBtnOne.textContent = questionFour[0];
+    answerBtnTwo.textContent = questionFour[1];
+    answerBtnThree.textContent = questionFour[2];
+    answerBtnFour.textContent = questionFour[3];
     questionsArray.shift();
   } else if (questionsArray[0] === "q5") {
-    questionText.innerHTML = questionFive[0];
-    answerBtnOne.textContent = questionFive[1];
-    answerBtnTwo.textContent = questionFive[2];
-    answerBtnThree.textContent = questionFive[3];
-    answerBtnFour.textContent = questionFive[4];
+    questionTextElement.innerHTML = questionText[4];
+    answerBtnOne.textContent = questionFive[0];
+    answerBtnTwo.textContent = questionFive[1];
+    answerBtnThree.textContent = questionFive[2];
+    answerBtnFour.textContent = questionFive[3];
     questionsArray.shift();
   } else {
     endGame();
@@ -182,7 +183,7 @@ function clearResult() {
 }
 
 //delay clearResult function
-setTimeout(clearResult, 2000);
+setTimeout(clearResult(), 2000);
 
 function endGame() {
   prompt("Score: " + score + "\nEnter Initials:");
