@@ -110,7 +110,7 @@ section {
 }
 
 .high-scores ul {
-  list-style-type: none;
+  list-style-type: numbers;
   text-align: left;
 }
 

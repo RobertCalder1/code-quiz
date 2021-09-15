@@ -19,29 +19,36 @@ var timerCount;
 //questions variables
 var questionsArray = [
   {
-    question: "Hello",
-    answers: ["What", "When", "Why", "How"],
-    correct: "What",
+    question: "Commonly used data types DO NOT include:",
+    answers: ["strings", "booleans", "alerts", "numbers"],
+    correct: "alerts",
   },
   {
-    question: "World",
-    answers: ["What", "When", "Why", "How"],
-    correct: "What",
+    question: "The condition in an if/else statement is enclosed with ____.",
+    answers: ["quotes", "curly brackets", "parentheses", "square brackets"],
+    correct: "parentheses",
   },
   {
-    question: "Lets",
-    answers: ["What", "When", "Why", "How"],
-    correct: "What",
+    question: "Arrays in Javascript can be used to store ____.",
+    answers: [
+      "numbers and strings",
+      "other arrays",
+      "booleans",
+      "all of the above",
+    ],
+    correct: "all of the above",
   },
   {
-    question: "Have",
-    answers: ["What", "When", "Why", "How"],
-    correct: "What",
+    question:
+      "string values must be enclosed within _____ when being assigned to variables",
+    answers: ["commas", "curly brackets", "quotes", "parentheses"],
+    correct: "quotes",
   },
   {
-    question: "Fun",
-    answers: ["What", "When", "Why", "How"],
-    correct: "What",
+    question:
+      "A very useful tool used during development and debugging for printing content to the debugger is:",
+    answers: ["javascript", "terminal/bash", "for loops", "console.log"],
+    correct: "console.log",
   },
 ];
 var questionIndex = 0;
@@ -106,6 +113,7 @@ function shuffle(array) {
 
 //create function to show question and answers
 function questions() {
+  setTimeout(clearResult, 1000);
   if (questionIndex < 5) {
     var question = questionsArray[questionIndex];
     shuffle(question.answers);
@@ -115,7 +123,7 @@ function questions() {
     answerBtnThree.textContent = question.answers[2];
     answerBtnFour.textContent = question.answers[3];
   } else {
-    endGame();
+    setTimeout(endGame, 1500);
   }
 }
 //create function for answer selection
@@ -132,20 +140,19 @@ function answer(event) {
 function correct() {
   answerResult.innerHTML = "Correct";
   score += 5;
-  setTimeout(clearResult, 1000);
   questionIndex++;
 }
 function incorrect() {
   answerResult.innerHTML = "Incorrect";
   timerCount -= 10;
-  setTimeout(clearResult, 1000);
   questionIndex++;
 }
 
+//clear answerResult
 function clearResult() {
   answerResult.innerHTML = "";
 }
-
+//end game function
 function endGame() {
   setHighScore();
   toggleHighScore();
@@ -158,7 +165,9 @@ function init() {
 
 function setHighScore() {
   var highScores = document.createTextNode(
-    prompt("Score: " + score + "\nEnter Initials:") + ": " + score
+    prompt("All Done!\nFinal Score: " + score + "\nEnter Initials:") +
+      ": " +
+      score
   );
   var createLi = document.createElement("li");
   createLi.appendChild(highScores);
