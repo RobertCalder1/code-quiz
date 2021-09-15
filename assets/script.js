@@ -1,7 +1,7 @@
 //button variables
 var highScoresButton = document.querySelector(".high-scores-button");
 var startButton = document.querySelector(".start-button");
-var answerButton = document.querySelector(".answer-button");
+var answerButton = document.getElementsByClassName("answer-button");
 var backButton = document.querySelector(".back-button");
 //section variables
 var highScoresSection = document.querySelector(".high-scores-section");
@@ -29,7 +29,7 @@ var answerBtnTwo = document.querySelector(".answer-button-2");
 var answerBtnThree = document.querySelector(".answer-button-3");
 var answerBtnFour = document.querySelector(".answer-button-4");
 var answerResult = document.querySelector(".answer-result");
-
+var questionAttempts;
 //other variables
 var score = 0;
 
@@ -58,6 +58,7 @@ function startGame() {
   questionsSection.style.display = "inline-block";
   timerCount = 60;
   score = 0;
+  questionAttempts = 0;
   startTimer();
   questionsArray = ["q1", "q2", "q3", "q4", "q5"];
   shuffle(questionsArray);
@@ -67,7 +68,6 @@ function startGame() {
   shuffle(questionFour);
   shuffle(questionFive);
   question();
-  console.log(questionsArray);
 }
 
 //create function for starting timer
@@ -124,73 +124,81 @@ function question() {
     answerBtnThree.textContent = questionFive[2];
     answerBtnFour.textContent = questionFive[3];
     questionsArray.shift();
-  } else {
-    endGame();
   }
 }
+
 //create function for answer
-function answer() {
+function answer(event) {
   if (questionsArray[0] === "q1") {
-    if (answerButton.textContent === "What") {
+    if (event.target.textContent === "What") {
       correct();
     } else {
       incorrect();
     }
   }
   if (questionsArray[0] === "q2") {
-    if (answerButton.textContent === "What") {
+    if (event.target.textContent === "What") {
       correct();
     } else {
       incorrect();
     }
   }
   if (questionsArray[0] === "q3") {
-    if (answerButton.textContent === "What") {
+    if (event.target.textContent === "What") {
       correct();
     } else {
       incorrect();
     }
   }
   if (questionsArray[0] === "q4") {
-    if (answerButton.textContent === "What") {
+    if (event.target.textContent === "What") {
       correct();
     } else {
       incorrect();
     }
   }
   if (questionsArray[0] === "q5") {
-    if (answerButton.textContent === "What") {
+    if (event.target.textContent === "What") {
       correct();
     } else {
       incorrect();
     }
   }
-  question();
 }
 //create answerResult functions
 function correct() {
   answerResult.innerHTML = "Correct";
   score += 5;
-  clearResult();
+  setTimeout(clearResult, 1000);
+  if (questionAttempts !== 5) {
+    questionAttempts++;
+    question();
+  } else {
+    endGame();
+  }
+  console.log(questionAttempts);
 }
 function incorrect() {
   answerResult.innerHTML = "Incorrect";
   timerCount -= 10;
-  clearResult();
+  setTimeout(clearResult, 1000);
+  if (questionAttempts !== 5) {
+    questionAttempts++;
+    question();
+  } else {
+    endGame();
+  }
+  console.log(questionAttempts);
 }
 function clearResult() {
   answerResult.innerHTML = "";
 }
-
-//delay clearResult function
-setTimeout(clearResult(), 2000);
 
 function endGame() {
   prompt("Score: " + score + "\nEnter Initials:");
   toggleHighScore();
 }
 
-//create function to show question
 highScoresButton.addEventListener("click", toggleHighScore);
 
 startButton.addEventListener("click", startGame);
@@ -199,4 +207,7 @@ backButton.addEventListener("click", goBack);
 
 startButton.addEventListener("click", startGame);
 
-answerButton.addEventListener("click", answer);
+answerButton[0].addEventListener("click", answer);
+answerButton[1].addEventListener("click", answer);
+answerButton[2].addEventListener("click", answer);
+answerButton[3].addEventListener("click", answer);
