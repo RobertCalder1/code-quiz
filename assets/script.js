@@ -74,11 +74,11 @@ function startTimer() {
   timer = setInterval(function () {
     timerCount--;
     timerElement.textContent = timerCount;
+    if (timerCount <= 0) {
+      clearInterval(timer);
+      endGame();
+    }
   }, 1000);
-  if (timerCount === 0) {
-    clearInterval(timer);
-    endGame();
-  }
 }
 
 //create function to shuffle questions
@@ -180,6 +180,7 @@ function incorrect() {
 function clearResult() {
   answerResult.innerHTML = "";
 }
+
 //delay clearResult function
 setTimeout(clearResult, 2000);
 
