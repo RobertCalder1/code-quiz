@@ -164,6 +164,7 @@ function init() {
   getHighScores();
 }
 
+//set high score at the end of the quiz
 function setHighScore() {
   var highScores = prompt(
     "All Done!\nFinal Score: " + score + "\nEnter Initials:"
@@ -182,6 +183,7 @@ function setHighScore() {
   console.log(localStorage.getItem("highScoreRecords"));
 }
 
+//get high scores and set score array
 function getHighScores() {
   var storedScores = JSON.parse(localStorage.getItem("highScoreRecords"));
   scoreArray = storedScores;
