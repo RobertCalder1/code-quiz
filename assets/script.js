@@ -178,25 +178,24 @@ function setHighScore() {
     score: score,
   };
   scoreArray.push(currentScores);
-  console.log(scoreArray);
   localStorage.setItem("highScoreRecords", JSON.stringify(scoreArray));
-  console.log(localStorage.getItem("highScoreRecords"));
 }
 
 //get high scores and set score array
 function getHighScores() {
-  var storedScores = JSON.parse(localStorage.getItem("highScoreRecords"));
-  scoreArray = storedScores;
-  console.log(storedScores);
-  for (var i = 0; i < storedScores.length; i++) {
-    var highScores = document.createTextNode(
-      storedScores[i].name + ": " + storedScores[i].score
-    );
-    var createLi = document.createElement("li");
-    createLi.appendChild(highScores);
-    highScoreRecords.appendChild(createLi);
+  var checkStorage = localStorage.getItem("highScoreRecords");
+  if (checkStorage !== null && checkStorage !== "") {
+    var storedScores = JSON.parse(localStorage.getItem("highScoreRecords"));
+    scoreArray = storedScores;
+    for (var i = 0; i < storedScores.length; i++) {
+      var highScores = document.createTextNode(
+        storedScores[i].name + ": " + storedScores[i].score
+      );
+      var createLi = document.createElement("li");
+      createLi.appendChild(highScores);
+      highScoreRecords.appendChild(createLi);
+    }
   }
-  console.log(storedScores);
 }
 
 function clearHighScores() {
