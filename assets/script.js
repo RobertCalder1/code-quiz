@@ -59,6 +59,7 @@ var answerBtnThree = document.querySelector(".answer-button-3");
 var answerBtnFour = document.querySelector(".answer-button-4");
 var answerResult = document.querySelector(".answer-result");
 //other variables
+var scoreArray = [];
 var score = 0;
 var highScoreRecords = document.querySelector(".score-records");
 var highScoresRecords = "";
@@ -164,34 +165,41 @@ function init() {
 }
 
 function setHighScore() {
-  var highScores = document.createTextNode(
-    prompt("All Done!\nFinal Score: " + score + "\nEnter Initials:") +
-      ": " +
-      score
+  var highScores = prompt(
+    "All Done!\nFinal Score: " + score + "\nEnter Initials:"
   );
+  var recordScore = document.createTextNode(highScores + ": " + score);
   var createLi = document.createElement("li");
-  createLi.appendChild(highScores);
+  createLi.appendChild(recordScore);
   highScoreRecords.appendChild(createLi);
-  localStorage.setItem(
-    "highScoreRecords",
-    JSON.stringify(highScoreRecords.textContent)
-  );
+  var currentScores = {
+    name: highScores,
+    score: score,
+  };
+  scoreArray.push(currentScores);
+  console.log(scoreArray);
+  localStorage.setItem("highScoreRecords", JSON.stringify(scoreArray));
   console.log(localStorage.getItem("highScoreRecords"));
 }
 
 function getHighScores() {
-  var storedScores = localStorage.getItem("highScoreRecords");
-  var highScores = document.createTextNode(storedScores);
-  var createLi = document.createElement("li");
-  createLi.appendChild(highScores);
-  highScoreRecords.appendChild(createLi);
+  var storedScores = JSON.parse(localStorage.getItem("highScoreRecords"));
+  scoreArray = storedScores;
+  console.log(storedScores);
+  for (var i = 0; i < storedScores.length; i++) {
+    var highScores = document.createTextNode(
+      storedScores[i].name + ": " + storedScores[i].score
+    );
+    var createLi = document.createElement("li");
+    createLi.appendChild(highScores);
+    highScoreRecords.appendChild(createLi);
+  }
   console.log(storedScores);
 }
 
 function clearHighScores() {
   highScoreRecords.innerHTML = "";
   localStorage.setItem("highScoreRecords", "");
-  console.log(localStorage.getItem("highScoreRecords"));
 }
 
 highScoresButton.addEventListener("click", toggleHighScore);
